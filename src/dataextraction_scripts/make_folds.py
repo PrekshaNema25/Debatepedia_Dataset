@@ -4,7 +4,7 @@
 # Arguemnt #2 : Summary File (True label file)
 # Argument #3 : Query File
 #Argument #4: Number of folds in which the mentioned files will be divided.
-
+# Argument #5: Directory where the 10 folds will be stored.
 import sys 
 import os
 
@@ -29,7 +29,7 @@ def fill(content, summary, query):
 	return c, s, q
 
 
-def make_different_datasets(content, summary, query, number_of_folds):
+def make_different_datasets(content, summary, query, number_of_folds, name):
 
 	i = 0
 	j = 0
@@ -41,8 +41,8 @@ def make_different_datasets(content, summary, query, number_of_folds):
 
 	for count in range(1,number_of_folds+1):
 
-		if not (os.path.exists(str(count))):
-			os.makedirs(str(count))
+		if not (os.path.exists(os.path.join(name, str(count)))):
+			os.makedirs(os.path.join(name, str(count)))
 
 		i = j
 		print i
@@ -93,15 +93,15 @@ def make_different_datasets(content, summary, query, number_of_folds):
 			t = t + 1
 
 
-		vc = open (os.path.join(str(count), "valid_content") , "w")
-		vs = open ( os.path.join(str(count), "valid_summary") , "w")
-		vq = open ( os.path.join(str(count), "valid_query"), "w")
-		trc = open ( os.path.join(str(count), "train_content"), "w")
-		trs = open ( os.path.join(str(count), "train_summary"), "w")
-		trq= open ( os.path.join(str(count), "train_query"), "w")
-		tc = open ( os.path.join(str(count), "test_content"), "w")
-		ts = open ( os.path.join(str(count), "test_summary"), "w")
-		tq = open ( os.path.join(str(count), "test_query"), "w")
+		vc = open (os.path.join(name, str(count), "valid_content") , "w")
+		vs = open ( os.path.join(name, str(count), "valid_summary") , "w")
+		vq = open ( os.path.join(name, str(count), "valid_query"), "w")
+		trc = open ( os.path.join(name, str(count), "train_content"), "w")
+		trs = open ( os.path.join(name, str(count), "train_summary"), "w")
+		trq= open ( os.path.join(name, str(count), "train_query"), "w")
+		tc = open ( os.path.join(name, str(count), "test_content"), "w")
+		ts = open ( os.path.join(name, str(count), "test_summary"), "w")
+		tq = open ( os.path.join(name, str(count), "test_query"), "w")
 
 		for m in range(exms_valid):
 			vc.write(valid_content[m])
@@ -133,7 +133,7 @@ def make_different_datasets(content, summary, query, number_of_folds):
 
 def main():
 
-	make_different_datasets(sys.argv[1], sys.argv[2], sys.argv[3], int(sys.argv[4]))
+	make_different_datasets(sys.argv[1], sys.argv[2], sys.argv[3], int(sys.argv[4]), sys.argv[5])
 
 if __name__ == '__main__':
 		main()	

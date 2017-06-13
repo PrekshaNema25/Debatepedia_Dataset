@@ -16,11 +16,10 @@ def extract_query_links(filename, dirname):
 
 
 	e = open('error','wb')
-	i = counter[val]
+	i = 1
 	count = i
-	prev_i=counter[val]
+	prev_i=1
 	for lines in all_links:
-		print (lines)
 
 		prev_i = i
 		if not (os.path.exists(d + "/" + str(count))):
@@ -149,17 +148,17 @@ def extract_single_link(link, count, dataset):
 										output_file = open(output_path + "/query" , "wb")
 										output_summary = open(output_path +"/summary","wb")
 										output_content = open(output_path +"/content","wb")
-										output_file.write("<q>" + query.encode('utf-8') + "</q>")
+										output_file.write(query.encode('utf-8') )
 										init = True
 										count = count + 1
 
 									for context in context_list:
 										context = unicode(context)
-										output_content.write("<cont> " + context.encode('utf-8').strip('\n') + " </cont>\n")
+										output_content.write(  context.encode('utf-8').strip('\n') + "\n")
 
 									for summary in summary_list:
 										summary= unicode(summary)
-										output_summary.write("<sum> " + summary.encode('utf-8') +" </sum>\n")
+										output_summary.write( summary.encode('utf-8') +"\n")
 									
 	return count
 
